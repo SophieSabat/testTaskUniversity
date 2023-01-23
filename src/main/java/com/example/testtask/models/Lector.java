@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Table(name = "lectors")
+@Table(name = "lector")
 public class Lector {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class Lector {
     )
     public List<Department> departments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "headOfDepartment")
+    @OneToOne(mappedBy = "head_of_department")
     public Department headOfWhichDepartment;
 
     public Lector(String fullName) {

@@ -11,18 +11,18 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Table(name = "departments")
+@Table(name = "department")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "department_name", unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
     @NonNull
     @OneToOne
-    @JoinColumn(name = "headOfDepartment_id")
-    private Lector headOfDepartment;
+    @JoinColumn(name = "head_of_department")
+    private Lector head_of_department;
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(mappedBy = "departments", cascade = {CascadeType.PERSIST,CascadeType.MERGE})

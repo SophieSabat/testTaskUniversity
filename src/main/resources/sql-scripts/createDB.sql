@@ -4,16 +4,13 @@ CREATE DATABASE universityDB;
 
 USE universityDB;
 
-
-
-
 -- ----------------------------------------------------------------------------------------------------------------
 -- DEGREE
 -- ----------------------------------------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS degree
 (
     id   INTEGER     NOT NULL AUTO_INCREMENT,
-    name VARCHAR(10) NOT NULL,
+    name VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (id),
     UNIQUE (name)
@@ -22,7 +19,7 @@ CREATE TABLE IF NOT EXISTS degree
 -- ----------------------------------------------------------------------------------------------------------------
 -- LECTORS
 -- ----------------------------------------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS lectors
+CREATE TABLE IF NOT EXISTS lector
 (
     id        INTEGER     NOT NULL AUTO_INCREMENT,
     full_name VARCHAR(50) NOT NULL,
@@ -41,36 +38,36 @@ CREATE TABLE IF NOT EXISTS lectors
 -- ----------------------------------------------------------------------------------------------------------------
 -- DEPARTMENTS
 -- ----------------------------------------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS departments
+CREATE TABLE IF NOT EXISTS department
 (
-    id                    INTEGER      NOT NULL AUTO_INCREMENT,
-    department_name       VARCHAR(100) NOT NULL,
-    head_of_department_id INTEGER      NOT NULL,
+    id                 INTEGER      NOT NULL AUTO_INCREMENT,
+    name               VARCHAR(100) NOT NULL,
+    head_of_department INTEGER      NOT NULL,
 
     PRIMARY KEY (id),
-    UNIQUE (department_name),
+    UNIQUE (name),
 
-    FOREIGN KEY (head_of_department_id)
-        REFERENCES lectors (id)
+    FOREIGN KEY (head_of_department)
+        REFERENCES lector (id)
 ) DEFAULT CHARSET utf8;
 
 -- --------------------------------------------------------------
 -- LECTORS & DEPARTMENTS
--- relation between lectors and departments
--- the lectors could work in more than one department
+-- relation between lector and department
+-- the lector could work in more than one department
 -- --------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS lectors_departments
 (
-    lectors_id    INTEGER NOT NULL,
+    lector_id     INTEGER NOT NULL,
     department_id INTEGER NOT NULL,
 
-    INDEX (lectors_id),
-    FOREIGN KEY (lectors_id)
-        REFERENCES lectors (id),
+    INDEX (lector_id),
+    FOREIGN KEY (lector_id)
+        REFERENCES lector (id),
 
     INDEX (department_id),
     FOREIGN KEY (department_id)
-        REFERENCES departments (id)
+        REFERENCES department (id)
 ) DEFAULT CHARSET utf8;
 
 
