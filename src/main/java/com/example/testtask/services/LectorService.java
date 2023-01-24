@@ -12,7 +12,9 @@ public class LectorService {
     }
 
     public void addLector(Lector lector) {
-        lectorDAO.addLector(lector);
+        if (lector != null) {
+            lectorDAO.addLector(lector);
+        }
     }
 
     public String searchByTemplate(String template) {

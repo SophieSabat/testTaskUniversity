@@ -14,11 +14,10 @@ import java.util.Scanner;
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = Deprecated.class)
 public class TestTaskApplication implements CommandLineRunner {
-
     @Autowired
-    private DepartmentService departmentService;
+    private static DepartmentService departmentService;
     @Autowired
-    private LectorService lectorService;
+    private static LectorService lectorService;
 
     public TestTaskApplication(DepartmentService departmentService, LectorService lectorService) {
         this.departmentService = departmentService;
@@ -42,7 +41,7 @@ public class TestTaskApplication implements CommandLineRunner {
         run(args);
     }
 
-    public void commandOperation() {
+    public static void commandOperation() {
         Scanner scanner = new Scanner(System.in);
         String inputCommand = scanner.nextLine();
 
