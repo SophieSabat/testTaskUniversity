@@ -43,7 +43,6 @@ public class DepartmentDAO {
         ).setParameter(1, departmentName).getResultList();
 
         StringBuilder result = new StringBuilder();
-        result.append(resultList.size());
 
         for (Object[] objects : resultList) {
             result.append(objects[0])
