@@ -31,7 +31,7 @@ public class DepartmentService {
         return departmentDAO.averageSalary(departmentName);
     }
 
-    public int countOfEmployeeForDepartment(String departmentName) {
+    public String countOfEmployeeForDepartment(String departmentName) {
         return departmentDAO.showCountOfEmployeeForDepartment(departmentName);
     }
 }

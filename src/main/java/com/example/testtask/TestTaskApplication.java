@@ -30,18 +30,13 @@ public class TestTaskApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("What you do?" + "\n"
-                + "1. Add Degree" + "\n"
-                + "2. Add Lector" + "\n"
-                + "3. Add Department" + "\n"
-                + "3. Input command");
-
-        System.out.println("Input command:");
         commandOperation();
         run(args);
     }
 
     public static void commandOperation() {
+        System.out.println("Input command: ");
+
         Scanner scanner = new Scanner(System.in);
         String inputCommand = scanner.nextLine();
 
@@ -62,13 +57,12 @@ public class TestTaskApplication implements CommandLineRunner {
 
         } else if (inputCommand.contains("Show the average salary for the department")) {
             String inputDepartmentName = inputCommand.substring(43);
-            System.out.println(inputDepartmentName);
             BigDecimal result = departmentService.averageSalary(inputDepartmentName);
             System.out.println(result);
 
         } else if (inputCommand.contains("Show count of employee for")) {
             String inputDepartmentName = inputCommand.substring(27);
-            int countOfEmployeeForDepartment = departmentService.countOfEmployeeForDepartment(inputDepartmentName);
+            String countOfEmployeeForDepartment = departmentService.countOfEmployeeForDepartment(inputDepartmentName);
             System.out.println(countOfEmployeeForDepartment);
 
         } else if (inputCommand.contains("Global search by")) {

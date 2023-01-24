@@ -64,12 +64,11 @@ public class DepartmentDAO {
         return (BigDecimal) query.getSingleResult();
     }
 
-    public int showCountOfEmployeeForDepartment(String departmentName) {
-        Query countOfEmployee = entityManager.createNativeQuery(
-                "select count(lector_id) from lectors_departments " +
-                        "where department_id = (select department.id from department where department.name = ?)"
+    public String showCountOfEmployeeForDepartment(String departmentName) {
+        Query query = entityManager.createNativeQuery(
+                "select count(lector_id) from lectors_departments where department_id = (select department.id from department where department.name = ?)"
         ).setParameter(1, departmentName);
 
-        return countOfEmployee.getFirstResult();
+        return query.getSingleResult().toString();
     }
 }
