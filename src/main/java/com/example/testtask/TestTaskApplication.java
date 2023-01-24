@@ -6,19 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = Deprecated.class)
 public class TestTaskApplication implements CommandLineRunner {
+    private final DepartmentService departmentService;
+    private final LectorService lectorService;
     @Autowired
-    private static DepartmentService departmentService;
-    @Autowired
-    private static LectorService lectorService;
-
     public TestTaskApplication(DepartmentService departmentService, LectorService lectorService) {
         this.departmentService = departmentService;
         this.lectorService = lectorService;
@@ -34,7 +30,7 @@ public class TestTaskApplication implements CommandLineRunner {
         run(args);
     }
 
-    public static void commandOperation() {
+    public void commandOperation() {
         System.out.println("Input command: ");
 
         Scanner scanner = new Scanner(System.in);

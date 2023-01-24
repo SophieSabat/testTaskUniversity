@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Table(name = "lector")
 public class Lector {
     @Id
@@ -34,7 +33,7 @@ public class Lector {
     )
     public List<Department> departments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "head_of_department")
+    @OneToOne(mappedBy = "headOfDepartment")
     public Department headOfWhichDepartment;
 
     public Lector(String fullName) {

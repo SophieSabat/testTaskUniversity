@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LectorService {
-    private LectorDAO lectorDAO;
+    private final LectorDAO lectorDAO;
     public LectorService(LectorDAO lectorDAO) {
         this.lectorDAO = lectorDAO;
     }

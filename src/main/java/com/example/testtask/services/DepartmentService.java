@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Service
 public class DepartmentService {
-    private DepartmentDAO departmentDAO;
+    private final DepartmentDAO departmentDAO;
     public DepartmentService(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
     }

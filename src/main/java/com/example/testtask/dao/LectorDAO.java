@@ -22,7 +22,7 @@ public class LectorDAO {
     }
 
     public String searchByTemplate(String template) {
-        List resultList = entityManager.createNativeQuery(
+        List<String> resultList = entityManager.createNativeQuery(
                 "select l.full_name from Lector l where l.full_name like '%" + template + "%'").getResultList();
 
         StringBuilder result = new StringBuilder();

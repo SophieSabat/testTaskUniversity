@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Table(name = "department")
 public class Department {
     @Id
@@ -19,10 +18,9 @@ public class Department {
     @Column(name = "name", unique = true)
     private String name;
 
-    @NonNull
     @OneToOne
     @JoinColumn(name = "head_of_department")
-    private Lector head_of_department;
+    private Lector headOfDepartment;
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany(mappedBy = "departments", cascade = {CascadeType.PERSIST,CascadeType.MERGE})

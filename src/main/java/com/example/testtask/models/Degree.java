@@ -9,7 +9,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Table(name = "degree")
 public class Degree {
     @Id
