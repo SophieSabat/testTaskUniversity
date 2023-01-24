@@ -9,11 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 @SpringBootApplication
 public class TestTaskApplication implements CommandLineRunner {
+
+    private static final Logger LOG = Logger.getLogger(TestTaskApplication.class.getName());
     private final DepartmentService departmentService;
     private final LectorService lectorService;
+
     @Autowired
     public TestTaskApplication(DepartmentService departmentService, LectorService lectorService) {
         this.departmentService = departmentService;
@@ -31,7 +35,7 @@ public class TestTaskApplication implements CommandLineRunner {
     }
 
     public void commandOperation() {
-        System.out.println("Input command: ");
+        LOG.info("Input command: ");
 
         Scanner scanner = new Scanner(System.in);
         String inputCommand = scanner.nextLine();
@@ -39,7 +43,7 @@ public class TestTaskApplication implements CommandLineRunner {
         if (inputCommand.contains("Who is head of department")) {
             String inputDepartmentName = inputCommand.substring(26);
             String headOfDepartment = departmentService.headOfDepartment(inputDepartmentName);
-            System.out.println(headOfDepartment);
+            LOG.info(headOfDepartment);
 
         } else if (inputCommand.contains("statistics")) {
             String[] splitString = inputCommand.split("\\s+");
@@ -49,22 +53,22 @@ public class TestTaskApplication implements CommandLineRunner {
                 result.append(splitString[i]).append(" ");
             }
             String departmentStatistics = departmentService.showDepartmentStatistics(String.valueOf(result));
-            System.out.println(departmentStatistics);
+            LOG.info(departmentStatistics);
 
         } else if (inputCommand.contains("Show the average salary for the department")) {
             String inputDepartmentName = inputCommand.substring(43);
             BigDecimal result = departmentService.averageSalary(inputDepartmentName);
-            System.out.println(result);
+            LOG.info(result.toString());
 
         } else if (inputCommand.contains("Show count of employee for")) {
             String inputDepartmentName = inputCommand.substring(27);
             String countOfEmployeeForDepartment = departmentService.countOfEmployeeForDepartment(inputDepartmentName);
-            System.out.println(countOfEmployeeForDepartment);
+            LOG.info(countOfEmployeeForDepartment);
 
         } else if (inputCommand.contains("Global search by")) {
             String template = inputCommand.substring(17);
             String searchByTemplate = lectorService.searchByTemplate(template);
-            System.out.println(searchByTemplate);
+            LOG.info(searchByTemplate);
         }
     }
 }
