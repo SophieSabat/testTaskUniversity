@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 @AllArgsConstructor
@@ -32,35 +33,49 @@ public class DepartmentDAO {
     }
 
     public String showDepartmentStatistics(String departmentName) {
+        List listDegree = entityManager.createNativeQuery("select id, name from degree").getResultList();
 
-        Query countOfAssistant = entityManager.createNativeQuery(
-                "select count(lector.id) from lector\n" +
-                        "left join lectors_departments ld on lector.id = ld.lector_id\n" +
-                        "right join department on department.id = ld.department_id and department.name = ? \n" +
-                        "join degree on degree.id = lector.degree_id and degree.name = 'assistant'"
-        ).setParameter(1, departmentName);
+        entityManager.createNativeQuery(
+                "select count(lector.id), degree_id from lector " +
+                        "left join lectors_departments ld on lector.id = ld.lector_id " +
+                        "right join department d on d.id = ld.department_id and d.name = ? " +
+                        "group by degree_id"
+        );
 
-        Query countOfAssociateProfessor = entityManager.createNativeQuery(
-                "select count(lector.id) from lector\n" +
-                        "left join lectors_departments ld on lector.id = ld.lector_id\n" +
-                        "right join department on department.id = ld.department_id and department.name = ? \n" +
-                        "join degree on degree.id = lector.degree_id and degree.name = 'associate professor'"
-        ).setParameter(1, departmentName);
 
-        Query countOfProfessor = entityManager.createNativeQuery(
-                "select count(lector.id) from lector\n" +
-                        "left join lectors_departments ld on lector.id = ld.lector_id\n" +
-                        "right join department on department.id = ld.department_id and department.name = ? \n" +
-                        "join degree on degree.id = lector.degree_id and degree.name = 'professor'"
-        ).setParameter(1, departmentName);
 
-        String result = new String(
-                "assistans - " + countOfAssistant.getSingleResult().toString() + "\n" +
-                        "associate professors - " + countOfAssociateProfessor.getSingleResult().toString() + "\n" +
-                        "professors - " + countOfProfessor.getSingleResult().toString());
-
-        return result;
+        return "";
     }
+//    public String showDepartmentStatistics(String departmentName) {
+
+//        Query countOfAssistant = entityManager.createNativeQuery(
+//                "select count(lector.id) from lector\n" +
+//                        "left join lectors_departments ld on lector.id = ld.lector_id\n" +
+//                        "right join department on department.id = ld.department_id and department.name = ? \n" +
+//                        "join degree on degree.id = lector.degree_id and degree.name = 'assistant'"
+//        ).setParameter(1, departmentName);
+//
+//        Query countOfAssociateProfessor = entityManager.createNativeQuery(
+//                "select count(lector.id) from lector\n" +
+//                        "left join lectors_departments ld on lector.id = ld.lector_id\n" +
+//                        "right join department on department.id = ld.department_id and department.name = ? \n" +
+//                        "join degree on degree.id = lector.degree_id and degree.name = 'associate professor'"
+//        ).setParameter(1, departmentName);
+//
+//        Query countOfProfessor = entityManager.createNativeQuery(
+//                "select count(lector.id) from lector\n" +
+//                        "left join lectors_departments ld on lector.id = ld.lector_id\n" +
+//                        "right join department on department.id = ld.department_id and department.name = ? \n" +
+//                        "join degree on degree.id = lector.degree_id and degree.name = 'professor'"
+//        ).setParameter(1, departmentName);
+//
+//        String result = new String(
+//                "assistans - " + countOfAssistant.getSingleResult().toString() + "\n" +
+//                        "associate professors - " + countOfAssociateProfessor.getSingleResult().toString() + "\n" +
+//                        "professors - " + countOfProfessor.getSingleResult().toString());
+//
+//        return result;
+//    }
 
     public BigDecimal averageSalary(String departmentName) {
         Query query = entityManager.createNativeQuery(
@@ -74,10 +89,12 @@ public class DepartmentDAO {
     }
 
     public int showCountOfEmployeeForDepartment(String departmentName) {
-        entityManager.createNativeQuery(
-                ""
+        Query countOfEmployee = entityManager.createNativeQuery(
+                "select count(lector_id) from lectors_departments\n" +
+                        "                        where department_id = (\n" +
+                        "                        select department.id from department where department.name = ?)"
         ).setParameter(1, departmentName);
 
-        return 0;
+        return countOfEmployee.getFirstResult();
     }
 }

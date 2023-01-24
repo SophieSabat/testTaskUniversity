@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @Service
 public class DepartmentService {
     private DepartmentDAO departmentDAO;
-
     public DepartmentService(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
     }
@@ -30,5 +29,9 @@ public class DepartmentService {
 
     public BigDecimal averageSalary(String departmentName) {
         return departmentDAO.averageSalary(departmentName);
+    }
+
+    public int countOfEmployeeForDepartment(String departmentName) {
+        return departmentDAO.showCountOfEmployeeForDepartment(departmentName);
     }
 }
